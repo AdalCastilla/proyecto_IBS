@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="client-page">
+    <h1>Portal de Cliente</h1>
+    <div class="login-container">
+        <h2>Crear Nuevo Ticket</h2>
+        <form method="POST" action="{{ url_for('main.cliente') }}">
+            <textarea name="ticket-description" rows="6" placeholder="Describe tu problema..." required></textarea>
+            <button type="submit">Enviar Ticket</button>
+        </form>
+    </div>
+
+    <div class="ticket-list">
+        <h2>Historial de Tickets</h2>
+        {% for ticket in tickets %}
+            <div class="ticket-item">
+                <h3>Ticket #{{ ticket.id }}</h3>
+                <p>{{ ticket.descripcion }}</p>
+                <p><strong>Estado:</strong> {{ ticket.estado }}</p>
+                <p><strong>Fecha:</strong> {{ ticket.fecha_creacion.strftime('%Y-%m-%d %H:%M') }}</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

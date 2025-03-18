@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="technician-page">
+    <h1>Portal de Técnico</h1>
+    <div class="ticket-list">
+        <h2>Tickets Pendientes</h2>
+        {% for ticket in tickets %}
+            <div class="ticket-item">
+                <h3>Ticket #{{ ticket.id }} - Cliente: {{ ticket.cliente.nombre_usuario }}</h3>
+                <p>{{ ticket.descripcion }}</p>
+                <form method="POST" action="{{ url_for('main.responder_ticket', ticket_id=ticket.id) }}">
+                    <textarea name="respuesta" rows="4" placeholder="Escribe tu respuesta..." required></textarea>
+                    <button type="submit">Marcar como Resuelto</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

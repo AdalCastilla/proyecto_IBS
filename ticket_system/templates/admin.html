@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-page">
+    <h1>Panel de Administración</h1>
+    
+    <div class="admin-options">
+        <div class="admin-option" id="create-user-option">
+            <h3>Crear Usuario</h3>
+        </div>
+    </div>
+    
+    <div id="create-user-form" class="login-container">
+        <h2>Crear Nuevo Usuario</h2>
+        <form method="POST" action="{{ url_for('main.crear_usuario') }}">
+            <select name="tipo_usuario" required>
+                <option value="">Selecciona el tipo de usuario</option>
+                <option value="cliente">Cliente</option>
+                <option value="tecnico">Técnico</option>
+            </select>
+            <input type="text" name="nombre_usuario" placeholder="Nombre de usuario" required>
+            <input type="email" name="correo" placeholder="Correo electrónico" required>
+            <input type="password" name="contraseña" placeholder="Contraseña" required>
+            <button type="submit">Crear Usuario</button>
+        </form>
+    </div>
+
+    <div class="ticket-list">
+        <h2>Usuarios Registrados</h2>
+        {% for usuario in usuarios %}
+            <div class="ticket-item">
+                <h3>{{ usuario.nombre_usuario }} ({{ usuario.tipo_usuario }})</h3>
+                <p>{{ usuario.correo }}</p>
+                <form method="POST" action="{{ url_for('main.eliminar_usuario', usuario_id=usuario.id) }}">
+                    <button type="submit">Eliminar Usuario</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
